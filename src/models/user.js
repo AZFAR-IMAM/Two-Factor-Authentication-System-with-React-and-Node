@@ -17,4 +17,9 @@ const userSchama = new mongoose.Schema({
     twoFactorSecret:{
         type: String
     }
+},{
+    timestamps: true
 })
+
+const User = mongoose.model("User",userSchama)
+export default User;

@@ -3,7 +3,11 @@ import session from "express-session";
 import passport from "passport";
 import dotenv from "dotenv";
 import cors from "cors";
+import bcrypt from "bcryptjs"
 import dbConnect from "./configs/dbConnect.js";
+import authRoutes from "./routes/authRoutes.js"
+import "./configs/passportConfig.js"
+
 
 dotenv.config();
 const app = express();
@@ -31,6 +35,8 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 //Routes
+
+app.use("/api/auth",authRoutes)
 
 //Listen app
 
