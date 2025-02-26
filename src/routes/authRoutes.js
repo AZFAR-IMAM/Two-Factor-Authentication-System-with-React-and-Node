@@ -7,8 +7,8 @@ import {
   setup2FA,
   verify2FA,
   reset2FA,
-} from "../controllers/authController.js"; // Ensure these functions are imported
-import "../configs/passportConfig.js"; // Corrected import path (assuming it's a setup file)
+} from "../controllers/authController.js"; 
+import "../configs/passportConfig.js"; 
 
 const route = Router();
 
@@ -24,7 +24,7 @@ route.get("/status", authStatus);
 // Logout route
 route.post("/logout", logout);
 
-//
+
 route.post(
   "/setup2FA",
   (req, res, next) => {
@@ -34,10 +34,10 @@ route.post(
   setup2FA
 );
 
-//
+
 route.post("/verify2FA", verify2FA);
 
-//
+
 route.post("/2FA/reset", reset2FA);
 
 export default route;
