@@ -1,7 +1,13 @@
 import { Router } from "express";
 import passport from "passport";
 import { register, login } from "../controllers/authController.js";
-import { authStatus, logout } from "../controllers/authController.js"; // Ensure these functions are imported
+import {
+  authStatus,
+  logout,
+  setup2FA,
+  verify2FA,
+  reset2FA,
+} from "../controllers/authController.js"; // Ensure these functions are imported
 import "../configs/passportConfig.js"; // Corrected import path (assuming it's a setup file)
 
 const route = Router();
@@ -10,12 +16,28 @@ const route = Router();
 route.post("/register", register);
 
 // Login route
-route.post("/login", passport.authenticate("local"), login); 
+route.post("/login", passport.authenticate("local"), login);
 
 // Auth Status route
 route.get("/status", authStatus);
 
 // Logout route
 route.post("/logout", logout);
+
+//
+route.post(
+  "/setup2FA",
+  (req, res, next) => {
+    if (req.isAuthenticated()) return next();
+    res.status(401).json({ message: "Unauthorised" });
+  },
+  setup2FA
+);
+
+//
+route.post("/verify2FA", verify2FA);
+
+//
+route.post("/2FA/reset", reset2FA);
 
 export default route;
